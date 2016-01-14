@@ -1,0 +1,40 @@
+#!/usr/bin/python
+import argparse
+from argparse import RawTextHelpFormatter
+from quick13.dateops import str2date
+from quick13.dateops import date2str
+from datetime import timedelta
+
+
+def process(start, end):
+    start_date = str2date(start, '%Y-%m-%d')
+    end_date = str2date(end, '%Y-%m-%d')
+
+    while start_date <= end_date:
+        print date2str(start_date, '%Y-%m-%d')
+        start_date = start_date + timedelta(days=1)
+
+
+def process_command_line_args():
+    global args
+
+    epilog = """"""
+
+    parser = argparse.ArgumentParser(description='This script return the list '
+                                                 'dates between 2 dates',
+                                     formatter_class=RawTextHelpFormatter,
+                                     epilog=epilog)
+
+    parser.add_argument('start_date',
+                        help='Enter start date YYYY-MM-DD')
+
+    parser.add_argument('end_date',
+                        help='Enter end date YYYY-MM-DD')
+
+    args = parser.parse_args()
+
+
+if __name__ == '__main__':
+    process_command_line_args()
+    process(args.start_date, args.end_date)
+

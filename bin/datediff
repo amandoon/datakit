@@ -1,0 +1,141 @@
+#!/usr/bin/python
+from __future__ import print_function
+__author__ = 'singhaman'
+
+import sys
+import argparse
+from argparse import RawTextHelpFormatter
+import datetime
+from quick13.dateops import str2date
+from quick13.dateops import date2str
+from quick13.dateops import date_diff
+from quick13.dateops import date_plus
+from quick13.dateops import date_minus
+from quick13.dateops import get_weekday_name
+
+date_format = '%Y-%m-%d'
+
+def process(date_string):
+    if len(date_string) == 21 and date_string.find(',') > -1:
+        (ds1, ds2) = date_string.split(',')
+        process_two_dates(ds1, ds2)
+
+    elif len(date_string) < 21 and date_string.find(',') > -1:
+        (ds, number) = date_string.split(',')
+        process_date_and_number(ds, int(number))
+
+    elif len(date_string) == 10:
+        process_single_date_only(date_string)
+
+    else:
+        print ("Invalid input. Please run this script with --help option")
+
+
+def process_two_dates(ds1, ds2):
+    date1 = str2date(ds1, date_format)
+    date2 = str2date(ds2, date_format)
+
+    date1_name = get_weekday_name(date1)
+    date2_name = get_weekday_name(date2)
+
+    n_days_diff = date_diff(date1, date2)
+
+    stderr_str = "Difference in days between {0} ({1}) & {2} ({3})\n".format(
+        date2str(date1, date_format),
+        date1_name.lower(),
+        date2str(date2, date_format),
+        date2_name.lower())
+    sys.stderr.write(stderr_str)
+
+    print(n_days_diff)
+
+
+def process_date_and_number(ds, number):
+    date1 = str2date(ds, date_format)
+
+    if number < 0:
+        date2 = (date_minus(date1, abs(number)))
+
+    else:
+        date2 = (date_plus(date1, abs(number)))
+
+    date1_name = get_weekday_name(date1)
+    date2_name = get_weekday_name(date1)
+
+    stderr_str = "Date {0} ({1}) + {2} = {3} ({4})\n".format(date1,
+                                                             date1_name.lower(),
+                                                             number,
+                                                             date2,
+                                                             date2_name.lower())
+    sys.stderr.write(stderr_str)
+
+    print (date2)
+
+
+def process_single_date_only(date_string):
+    list1 = []
+    list2 = []
+    list3 = []
+    list4 = []
+
+    for i in range(0, 29):
+
+        date1 = str2date(date_string, date_format)
+        date1_name = get_weekday_name(date1)
+
+        date2 = str2date(date_minus(date1, i), date_format)
+        date2_name = get_weekday_name(date2)
+
+        date3 = str2date(date_plus(date1, i), date_format)
+        date3_name = get_weekday_name(date3)
+
+        list1.append("{0} ({1})".format(
+            date2str(date2, date_format),
+            date2_name.lower()))
+
+        list2.append("{0} ({1})".format(
+            date2str(date3, date_format),
+            date3_name.lower()))
+
+    print ("+/- 28 days from {0} ({1})".format(date2str(date1, date_format),
+                                               date1_name.lower()))
+    print ('----+'+ '-'*18 + '+' + '-' * 20)
+    print ("  N | Add N Days       | Subtract N Days")
+    print ('----+'+ '-'*18 + '+' + '-' * 20)
+
+    for i in range(1,29):
+        print ("{0} | {1} | {2}".format(str(i).rjust(3),
+                                        list2[i],
+                                        list1[i]))
+
+def process_command_line_args():
+    global args
+
+    epilog = """
+This script can perform following based on the input
+ 1. 'YYYY-MM-DD1,YYYY-MM-DD2': It will return the difference in number of
+ days and weekday names
+
+ 2. 'YYYY-MM-DD,<postive or negative integer>': It will return the the date,
+ with weekday name, after adding or subtracting the integer days from YYYY-MM-DD
+
+ 3. 'YYYY-MM-DD': It will provide 28 days before and after the date with
+ weekday names
+"""
+
+    parser = argparse.ArgumentParser(description='Runs various operations on '
+                                                 'dates',
+                                     formatter_class=RawTextHelpFormatter,
+                                     epilog=epilog)
+
+    parser.add_argument('date_string',help='Enter date string. See allowed '
+                                           'formats below')
+
+    args = parser.parse_args()
+
+
+if __name__ == '__main__':
+    process_command_line_args()
+    process(args.date_string)
+
+

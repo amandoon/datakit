@@ -1,0 +1,71 @@
+#!/usr/bin/python
+from __future__ import print_function
+
+__author__ = 'singhaman'
+
+import sys
+import argparse
+import re
+from argparse import RawTextHelpFormatter
+
+
+def process(comma_delimited_words, ignore_case, whole_word):
+    if whole_word:
+        wwb = "\\b"  # Whole Word Boundary
+    else:
+        wwb = ""
+
+    for line in sys.stdin:
+        line = line.strip("\n")
+        tokens = comma_delimited_words.split(",")
+        total_matches = 0
+
+        for token in tokens:
+            token = token.replace("{COMMA}", ",")
+
+            if ignore_case:
+                match_found = re.search(wwb + token + wwb, line, re.IGNORECASE)
+            else:
+                match_found = re.search(wwb + token + wwb, line)
+
+            if match_found:
+                total_matches = 1
+                break
+
+        if total_matches == 1:
+            print(line)
+
+
+def process_command_line_args():
+    global args
+
+    epilog = """
+    """
+
+    parser = argparse.ArgumentParser(description='This script '
+                                                 'greps for '
+                                                 'anyone of the multiple '
+                                                 'expressions on '
+                                                 'same line',
+                                     formatter_class=RawTextHelpFormatter,
+                                     epilog=epilog)
+
+    parser.add_argument("comma_delimited_words",
+                        help="Comma delimited words. "
+                             "Anyone word needs to appear on the line "
+                             "to show up in the output")
+
+    parser.add_argument('-i', action="store_true", default=False,
+                        dest='ignore_case', help="Ignore case")
+
+    parser.add_argument('-w', action="store_true", default=False,
+                        dest='whole_word', help="Match whole word")
+
+    args = parser.parse_args()
+
+
+if __name__ == '__main__':
+    process_command_line_args()
+    process(args.comma_delimited_words, args.ignore_case, args.whole_word)
+
+

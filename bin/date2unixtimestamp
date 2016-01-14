@@ -1,0 +1,33 @@
+#!/usr/bin/python
+import argparse
+from argparse import RawTextHelpFormatter
+from quick13.dateops import str2date
+import time
+
+
+def process(input):
+    input_date = str2date(input, '%Y-%m-%d')
+    print int(time.mktime(input_date.timetuple()))
+
+
+def process_command_line_args():
+    global args
+
+    epilog = """"""
+
+    parser = argparse.ArgumentParser(description='This script converts string '
+                                                 'in format yyyy-mm-dd to '
+                                                 'unix timestamp',
+                                     formatter_class=RawTextHelpFormatter,
+                                     epilog=epilog)
+
+    parser.add_argument('input_date',
+                        help='Enter date in format YYYY-MM-DD')
+
+    args = parser.parse_args()
+
+
+if __name__ == '__main__':
+    process_command_line_args()
+    process(args.input_date)
+

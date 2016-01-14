@@ -1,0 +1,33 @@
+#!/usr/bin/python
+import argparse
+from argparse import RawTextHelpFormatter
+from quick13.dateops import str2date
+import time
+from datetime import datetime
+
+
+def process(input):
+    value = datetime.fromtimestamp(float(input))
+    print(value.strftime('%Y-%m-%d'))
+
+def process_command_line_args():
+    global args
+
+    epilog = """"""
+
+    parser = argparse.ArgumentParser(description='This script converts string '
+                                                 'in format unix timestamp '
+                                                 'to date in format YYYY-MM-DD',
+                                     formatter_class=RawTextHelpFormatter,
+                                     epilog=epilog)
+
+    parser.add_argument('unix_timestamp',
+                        help='Enter unix timestamp in PST')
+
+    args = parser.parse_args()
+
+
+if __name__ == '__main__':
+    process_command_line_args()
+    process(args.unix_timestamp)
+
