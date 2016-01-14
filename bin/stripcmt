@@ -134,15 +134,3 @@ WHILE_LOOP: while (<STDIN>){
     }
 }
 
-sub usage(){
-print ".........................................................................
- USAGE: stripcmt <--bash|--sql|--java>
-................................................................................
- This tool read from STDIN and remove block and line comments from the code. 
- It runs in '--sql' and '--java' mode. 
- In '--sql' mode, it will remove block comments within /* */ and single line 
- comment for starting with '--'.
- In '--java' mode, it will remove block comments within /* */ and single 
- line comments starting with '//'
-";
-}
