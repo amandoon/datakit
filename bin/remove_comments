@@ -111,12 +111,6 @@ def process(code_type):
                     print (line[i], end="")
 
 
-
-
-
-
-
-
 def process_command_line_args():
     global args
 
@@ -133,8 +127,8 @@ def process_command_line_args():
                                      formatter_class=RawTextHelpFormatter,
                                      epilog=epilog)
 
-    parser.add_argument('code_type', nargs='?', default='\t',
-                        help='Specify code type as "java" or "sql"')
+    parser.add_argument('code_type',
+                        help='Specify input code type as "java" or "sql"')
 
     args = parser.parse_args()
 
