@@ -1,0 +1,2 @@
+#!/bin/bash
+ls -1 /cygdrive/c/datakit/bin | xtokens "/" -1 |  sets 6 "ljust" | sed 's/  *$//' 
