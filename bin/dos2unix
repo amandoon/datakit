@@ -1,0 +1,2 @@
+#!/bin/bash
+cat - | sed 's/\r\n/\n/g'
