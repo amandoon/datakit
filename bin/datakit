@@ -1,7 +1,0 @@
-#!/usr/bin/python
-__author__ = 'singhaman'
-
-print """
-Following command are available in datakit. To see detailed description of the commands, run it with -h option
-
-"""
