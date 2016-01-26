@@ -25,7 +25,7 @@ def process():
                 prev_word_was_join = True
 
             elif prev_word_was_from or prev_word_was_join:
-                if re.search("[a-z0-9]", token) and token != "(select":
+                if re.search("[a-z0-9]", token) and token != "(select" and token != "(":
                     output.append(token)
                 prev_word_was_from = False
                 prev_word_was_join = False

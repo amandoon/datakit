@@ -1,11 +1,3 @@
 #!/bin/bash
 echo "----- Datakit Commands -----"
-ls -1 /cygdrive/c/datakit/bin | xtokens "/" -1 |  sets 4 "ljust" | sed 's/  *$//' 
-
-
-echo "ls
-ls -lh
-head -10
-tail -10
-pwd
-" | sets 4 ljust
+ls -1 /cygdrive/c/datakit/bin | xtokens "/" -1 |  sets 3 "ljust" | sed 's/*$//'
