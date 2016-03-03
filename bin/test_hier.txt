@@ -8,3 +8,9 @@ balvinder,tara
 sukwinder,manjeet
 avreen,aman
 avreen,manveen
+gurhimmat,maninder
+gurhimmat,amrit
+aryan,aman
+aryan,manveen
+maninder,kuldip
+maninder,daljeet
