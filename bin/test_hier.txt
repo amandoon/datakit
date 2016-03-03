@@ -1,0 +1,10 @@
+aman,kuldip
+kuldip,charan
+kuldip,darshan
+aman,daljeet
+manveen,sukwinder
+manveen,balvinder
+balvinder,tara
+sukwinder,manjeet
+avreen,aman
+avreen,manveen
