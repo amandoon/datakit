@@ -20,8 +20,8 @@ print (mydict)
 # Process file
 for key in mydict.keys():
     rolling_list = [key]
-    print ("\n==== DWComponentID '{0}' depends on following ===="
-           "DWComponentId".format(
+    print ("\n==== ComponentID '{0}' depends on following ===="
+           "ComponentId".format(
         key))
 
     output_dict = []
