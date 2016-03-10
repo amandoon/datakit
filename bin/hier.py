@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 # Parse file
-fr = open("test_hier.txt")
+fr = open("hier.txt")
 mydict = {}
 keys = []
 for line in fr:
@@ -20,7 +20,9 @@ print (mydict)
 # Process file
 for key in mydict.keys():
     rolling_list = [key]
-    print ("\n-------------------- {0}".format(key))
+    print ("\n==== DWComponentID '{0}' depends on following ===="
+           "DWComponentId".format(
+        key))
 
     output_dict = []
     while len(rolling_list) > 0:
